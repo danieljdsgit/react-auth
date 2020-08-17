@@ -27,6 +27,7 @@ class Auth {
     // return this.auth.post("/auth/logout", {}).then((response) => response.data);
   }
 
+  //Appele la route auth/me et renvoie les valeurs du l'user connecté
   me() {
     return this.auth.get("/auth/me").then(({ data }) => data);
     // return this.auth.get("/auth/me").then((response) => response.data);
