@@ -1,15 +1,18 @@
 import React, { Component } from "react";
+import { withAuth } from "../lib/AuthProvider";
 
 class Login extends Component {
   state = { username: "", password: "" };
 
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     const { username, password } = this.state;
-    console.log('Login -> form submit', { username, password });
+    console.log("Login -> form submit", { username, password });
+
+    this.props.login({ username, password });
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
@@ -22,12 +25,21 @@ class Login extends Component {
         <h1>Login</h1>
 
         <form onSubmit={this.handleFormSubmit}>
-          
           <label>Username:</label>
-          <input type="text" name="username" value={username} onChange={this.handleChange}/>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={this.handleChange}
+          />
 
           <label>Password:</label>
-          <input type="password" name="password" value={password} onChange={this.handleChange} />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={this.handleChange}
+          />
 
           <input type="submit" value="Login" />
         </form>
@@ -36,4 +48,6 @@ class Login extends Component {
   }
 }
 
-export default Login;
+//On englobe ce composant pour en faire un Consumer
+//On lui 'donne' Login, signup, user, logout, isLoogedin qui font parti de withAuth dans AuthProvider.js
+export default withAuth(Login);
